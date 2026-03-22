@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Await</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #15202b;
+      --muted: #52606d;
+      --accent: #0f7f95;
+      --accent-strong: #0b6475;
+      --border: #d9e2ec;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(15, 127, 149, 0.12), transparent 35%),
+        linear-gradient(180deg, #fbfdff 0%, var(--bg) 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 56px 20px 80px;
+    }
+
+    .hero,
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
+    }
+
+    .hero {
+      padding: 36px 32px;
+      margin-bottom: 24px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      padding: 28px;
+    }
+
+    h1,
+    h2 {
+      line-height: 1.2;
+      margin-top: 0;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .button.secondary {
+      background: rgba(15, 127, 149, 0.1);
+      color: var(--accent-strong);
+    }
+
+    a {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <h1>Await</h1>
+      <p>
+        Official support and privacy information for the Await app.
+      </p>
+      <div class="actions">
+        <a class="button" href="support/">Support</a>
+        <a class="button secondary" href="privacy-policy/">Privacy Policy</a>
+      </div>
+    </section>
+
+    <section class="card-grid">
+      <article class="card">
+        <h2>Support</h2>
+        <p>
+          Get help with issues, questions, and feedback for Await.
+        </p>
+      </article>
+
+      <article class="card">
+        <h2>Privacy Policy</h2>
+        <p>
+          Read how Await handles data and what information stays on your device.
+        </p>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
