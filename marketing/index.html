@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Await Marketing</title>
+  <meta name="description" content="Await is a clean countdown app for iPhone with an elegant widget and a privacy-first experience.">
+  <style>
+    :root {
+      --bg: #f3f7fb;
+      --surface: rgba(255, 255, 255, 0.84);
+      --surface-strong: #ffffff;
+      --text: #122033;
+      --muted: #5f6f82;
+      --accent: #0f7f95;
+      --accent-deep: #095969;
+      --accent-soft: rgba(15, 127, 149, 0.12);
+      --border: rgba(15, 32, 51, 0.1);
+      --shadow: 0 24px 60px rgba(18, 32, 51, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      background:
+        radial-gradient(circle at top left, rgba(15, 127, 149, 0.18), transparent 30%),
+        radial-gradient(circle at top right, rgba(9, 89, 105, 0.14), transparent 25%),
+        linear-gradient(180deg, #fbfdff 0%, var(--bg) 45%, #eef4f8 100%);
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px 20px 88px;
+    }
+
+    .nav,
+    .hero-card,
+    .section-card,
+    .feature,
+    .quote,
+    .footer-card {
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .nav,
+    .hero-card,
+    .section-card,
+    .quote,
+    .footer-card {
+      border-radius: 28px;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 18px;
+      margin-bottom: 24px;
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .nav-links a,
+    .button {
+      display: inline-block;
+      text-decoration: none;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    .nav-links a {
+      padding: 10px 14px;
+      color: var(--accent-deep);
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(15, 127, 149, 0.14);
+    }
+
+    .hero-card {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      padding: 34px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      font-size: clamp(2.6rem, 8vw, 4.8rem);
+      line-height: 0.98;
+      margin-bottom: 18px;
+      letter-spacing: -0.04em;
+    }
+
+    h2 {
+      font-size: clamp(1.7rem, 4vw, 2.4rem);
+      line-height: 1.05;
+      margin-bottom: 14px;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+    }
+
+    p {
+      color: var(--muted);
+    }
+
+    .hero-copy p {
+      font-size: 1.05rem;
+      max-width: 56ch;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .button {
+      padding: 13px 18px;
+    }
+
+    .button.primary {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .button.secondary {
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(15, 127, 149, 0.15);
+      color: var(--accent-deep);
+    }
+
+    .device {
+      position: relative;
+      min-height: 420px;
+      border-radius: 30px;
+      background:
+        linear-gradient(160deg, rgba(15, 127, 149, 0.18), rgba(9, 89, 105, 0.03)),
+        #ffffff;
+      border: 1px solid rgba(15, 32, 51, 0.09);
+      overflow: hidden;
+      padding: 18px;
+    }
+
+    .device::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at top, rgba(15, 127, 149, 0.24), transparent 42%),
+        linear-gradient(180deg, #fbfeff 0%, #edf5f8 100%);
+    }
+
+    .status,
+    .count-card,
+    .widget-card {
+      position: relative;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(15, 32, 51, 0.08);
+      border-radius: 22px;
+      box-shadow: 0 18px 36px rgba(18, 32, 51, 0.08);
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      margin-bottom: 18px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--accent-deep);
+    }
+
+    .status::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .count-card {
+      padding: 22px;
+      margin-bottom: 16px;
+    }
+
+    .count-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+      margin-bottom: 14px;
+    }
+
+    .count-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .count-grid strong {
+      display: block;
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .count-grid span {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .widget-card {
+      padding: 18px;
+    }
+
+    .widget-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .widget-pill {
+      display: inline-block;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .widget-value {
+      font-size: 2.4rem;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      margin-bottom: 8px;
+    }
+
+    .section-card {
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+
+    .feature-grid,
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .feature {
+      border-radius: 24px;
+      padding: 22px;
+    }
+
+    .feature-tag {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .quote {
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+
+    .quote p {
+      font-size: 1.15rem;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .footer-card {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 24px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .footer-links a {
+      color: var(--accent-deep);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    @media (max-width: 860px) {
+      .hero-card,
+      .feature-grid,
+      .info-grid,
+      .footer-card {
+        grid-template-columns: 1fr;
+        display: grid;
+      }
+
+      .footer-card {
+        justify-content: stretch;
+      }
+
+      .device {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .hero-card,
+      .section-card,
+      .quote,
+      .footer-card {
+        padding: 22px;
+      }
+
+      .count-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <nav class="nav">
+      <a class="brand" href="../">Await</a>
+      <div class="nav-links">
+        <a href="../support/">Support</a>
+        <a href="../privacy-policy/">Privacy Policy</a>
+      </div>
+    </nav>
+
+    <section class="hero-card">
+      <div class="hero-copy">
+        <span class="eyebrow">Marketing Page</span>
+        <h1>Your next date deserves more than a plain reminder.</h1>
+        <p>
+          Await is a focused countdown app for iPhone that turns an important date into a calm,
+          glanceable experience with a clean widget, simple setup, and no account friction.
+        </p>
+        <div class="button-row">
+          <a class="button primary" href="../support/">Contact Support</a>
+          <a class="button secondary" href="../privacy-policy/">Privacy Policy</a>
+        </div>
+      </div>
+
+      <div class="device" aria-hidden="true">
+        <div class="status">Focused countdown</div>
+        <div class="count-card">
+          <div class="count-label">Trip to Lisbon</div>
+          <div class="count-grid">
+            <div>
+              <strong>18</strong>
+              <span>Days</span>
+            </div>
+            <div>
+              <strong>07</strong>
+              <span>Hours</span>
+            </div>
+            <div>
+              <strong>12</strong>
+              <span>Minutes</span>
+            </div>
+          </div>
+        </div>
+        <div class="widget-card">
+          <div class="widget-pill">Home Screen Widget</div>
+          <div class="widget-title">Await</div>
+          <div class="widget-value">18</div>
+          <p>Days until your moment arrives.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-card">
+      <h2>Made for one important date at a time.</h2>
+      <p>
+        Await keeps the experience simple on purpose. Pick your date, add the widget, and let the app
+        do one job beautifully.
+      </p>
+      <div class="feature-grid">
+        <article class="feature">
+          <span class="feature-tag">Simple</span>
+          <h3>Fast setup</h3>
+          <p>Choose a target date and start tracking it in seconds with a clean, distraction-free interface.</p>
+        </article>
+        <article class="feature">
+          <span class="feature-tag">Widget</span>
+          <h3>Always visible</h3>
+          <p>Keep your countdown on your Home Screen so the next big moment stays visible at a glance.</p>
+        </article>
+        <article class="feature">
+          <span class="feature-tag">Private</span>
+          <h3>No account required</h3>
+          <p>Your countdown stays on your device, with no sign-up flow and no unnecessary data collection.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="quote">
+      <p>
+        Await is for trips, birthdays, launch days, holidays, and all the milestones worth savoring before they arrive.
+      </p>
+      <span>Built to feel calm, lightweight, and intentionally minimal.</span>
+    </section>
+
+    <section class="section-card">
+      <h2>Useful links</h2>
+      <div class="info-grid">
+        <article class="feature">
+          <span class="feature-tag">Support</span>
+          <h3>Help and contact</h3>
+          <p>Questions, bug reports, or feedback can be sent directly from the support page.</p>
+          <p><a href="../support/">Open support page</a></p>
+        </article>
+        <article class="feature">
+          <span class="feature-tag">Privacy</span>
+          <h3>Privacy details</h3>
+          <p>Read how Await stores the selected countdown date and what it does not collect.</p>
+          <p><a href="../privacy-policy/">Open privacy policy</a></p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer-card">
+      <div>
+        <h3>Await</h3>
+        <p>Marketing, support, and privacy pages for the Await app.</p>
+      </div>
+      <div class="footer-links">
+        <a href="../">Home</a>
+        <a href="../support/">Support</a>
+        <a href="../privacy-policy/">Privacy</a>
+      </div>
+    </footer>
+  </main>
+</body>
+</html>
